@@ -1,0 +1,49 @@
+/* ============================================================
+   StrawTime — Design tokens
+   Papel dominante, rosa de acento y plata en filetes.
+   Proporción real y reglas: DESIGN.md.
+   Sin modo oscuro: color-scheme queda fijado en light.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* --- papel y marrón claro (base) --- */
+  --paper: #efe3d2;
+  --paper-soft: #f7eedf;
+  --paper-deep: #e2d1b8;
+  --ink: #3e2a1e;
+  --ink-soft: #6b5344;
+  --ink-faint: #654d3e;
+
+  /* --- rosa pastel (acento) --- */
+  --rose: #f3c9d1;
+  --rose-deep: #e3a6b4;
+  --rose-ink: #7e3d4a;
+
+  /* --- plateado (filetes) --- */
+  --silver: #c7cbd1;
+  --silver-lo: #9aa0a8;
+  --silver-line: rgba(154, 160, 168, 0.55);
+
+  /* --- sombras y bordes --- */
+  --shadow-sm: 0 1px 2px rgba(62, 42, 30, 0.08);
+  --shadow-md: 0 18px 40px -26px rgba(62, 42, 30, 0.55);
+  --shadow-lg: 0 30px 60px -34px rgba(62, 42, 30, 0.6);
+  --radius: 3px;
+  --radius-lg: 6px;
+
+  /* --- tipografía --- */
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Lora", Georgia, serif;
+
+  /* --- layout --- */
+  --maxw: 1180px;
+  --gutter: clamp(1.15rem, 4vw, 2.5rem);
+  --header-h: 76px;
+  --mobile-bar-h: 56px;
+
+  /* --- movimiento --- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 0.45s;
+}

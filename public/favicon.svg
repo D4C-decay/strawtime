@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="StrawTime">
+  <rect width="64" height="64" rx="14" fill="#EFE3D2"/>
+  <rect x="2.5" y="2.5" width="59" height="59" rx="12" fill="none" stroke="#C7CBD1" stroke-width="1.5"/>
+  <path d="M32 55c-10.4 0-18.6-7.5-18.6-17.7 0-6.6 3.9-12.9 9.9-16h17.4c6 3.1 9.9 9.4 9.9 16C50.6 47.5 42.4 55 32 55Z" fill="#D98FA0" stroke="#8E4A57" stroke-width="2"/>
+  <path d="M23.3 21.3C26 17.9 28.8 16.2 32 16.2s6 1.7 8.7 5.1" fill="none" stroke="#3E2A1E" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M32 16.2V9.8" stroke="#3E2A1E" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M26 12.4l-3.2-3.6M38 12.4l3.2-3.6" stroke="#3E2A1E" stroke-width="2.4" stroke-linecap="round"/>
+  <g fill="#EFE3D2">
+    <circle cx="26.5" cy="31" r="1.6"/><circle cx="32" cy="37" r="1.6"/>
+    <circle cx="37.5" cy="31" r="1.6"/><circle cx="29" cy="43" r="1.6"/>
+    <circle cx="35" cy="43" r="1.6"/>
+  </g>
+</svg>

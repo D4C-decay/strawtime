@@ -1,0 +1,415 @@
+/* ============================================================
+   Base — reset, tipografía, textura de papel y piezas compartidas
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(1100px 560px at 50% -12%, rgba(255, 255, 255, 0.6), transparent 72%),
+    radial-gradient(820px 520px at 102% 6%, rgba(243, 201, 209, 0.28), transparent 70%),
+    radial-gradient(760px 520px at -4% 92%, rgba(226, 209, 184, 0.5), transparent 72%);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.06rem);
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Grano de papel: una capa fija, barata y sin imágenes externas. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+em {
+  font-style: italic;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--rose-deep);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--rose-ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- utilidades ---------- */
+
+.container {
+  width: min(100% - (var(--gutter) * 2), var(--maxw));
+  margin-inline: auto;
+}
+
+.section {
+  position: relative;
+  padding-block: clamp(3.5rem, 7vw, 6.5rem);
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 200;
+  padding: 0.75rem 1.1rem;
+  background: var(--paper-soft);
+  border: 1px solid var(--silver);
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: top 0.2s var(--ease);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* El destino del skip-link recibe foco programático: no necesita anillo. */
+main:focus {
+  outline: none;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 1rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--rose-ink);
+}
+
+.eyebrow__rule {
+  display: inline-block;
+  width: 34px;
+  height: 1px;
+  background: var(--silver-lo);
+}
+
+.eyebrow--center {
+  justify-content: center;
+}
+
+.section-head {
+  max-width: 660px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section-head--left {
+  margin-inline: 0;
+  text-align: left;
+}
+
+.section-title {
+  font-size: clamp(2rem, 1.35rem + 2.6vw, 3.15rem);
+  font-weight: 600;
+}
+
+.section-title em {
+  color: var(--rose-ink);
+}
+
+.section-title--left {
+  text-align: left;
+}
+
+.section-flourish {
+  display: block;
+  width: 176px;
+  height: 16px;
+  margin: 1rem auto 1.1rem;
+  color: var(--silver-lo);
+}
+
+.section-flourish--left {
+  margin-inline: 0;
+}
+
+.section-lead {
+  max-width: 56ch;
+  margin-inline: auto;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+}
+
+.section-head--left .section-lead {
+  margin-inline: 0;
+}
+
+/* ---------- botones ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 46px;
+  padding: 0.85rem 1.4rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn__icon {
+  width: 17px;
+  height: 17px;
+  flex: none;
+}
+
+.btn--rose {
+  background: var(--rose);
+  color: var(--ink);
+  border-color: rgba(126, 61, 74, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    0 0 0 1px rgba(199, 203, 209, 0.5),
+    var(--shadow-sm);
+}
+
+.btn--rose:hover {
+  background: var(--rose-deep);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 0 0 1px rgba(154, 160, 168, 0.7),
+    0 10px 20px -14px rgba(62, 42, 30, 0.55);
+}
+
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.28);
+  color: var(--ink);
+  border-color: var(--silver-line);
+}
+
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: var(--silver-lo);
+}
+
+.btn--lg {
+  padding: 1.05rem 1.8rem;
+  font-size: 0.82rem;
+}
+
+/* ---------- reveal ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Salto por ancla o enlace directo: el destino no debe animarse al aterrizar. */
+html.is-jumping .reveal {
+  transition: none;
+}
+
+@media (scripting: none) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- react-bits adaptados ---------- */
+
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle var(--spot-size, 320px) at var(--mx, 50%) var(--my, 50%),
+    var(--spot-color, rgba(217, 143, 160, 0.3)),
+    transparent 70%
+  );
+  opacity: var(--spot, 0);
+  transition: opacity 0.45s var(--ease);
+  pointer-events: none;
+}
+
+.spotlight > * {
+  position: relative;
+  z-index: 1;
+}
+
+.glare {
+  position: relative;
+  overflow: hidden;
+}
+
+.glare__beam {
+  position: absolute;
+  top: -60%;
+  left: 0;
+  z-index: 2;
+  width: 55%;
+  height: 220%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(244, 246, 248, 0.55) 45%,
+    rgba(199, 203, 209, 0.28) 60%,
+    transparent 100%
+  );
+  transform: translateX(-160%) rotate(9deg);
+  opacity: 0;
+  transition:
+    transform 0.85s var(--ease),
+    opacity 0.4s var(--ease);
+  pointer-events: none;
+}
+
+.glare:hover .glare__beam,
+.glare:focus-within .glare__beam {
+  transform: translateX(240%) rotate(9deg);
+  opacity: 1;
+}
+
+.magnet {
+  transform: translate3d(var(--mx, 0px), var(--my, 0px), 0);
+  transition: transform 0.3s var(--ease);
+  will-change: transform;
+}
+
+@media (hover: none) {
+  .spotlight::before {
+    display: none;
+  }
+
+  .glare__beam {
+    display: none;
+  }
+
+  .magnet {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .magnet {
+    transform: none;
+  }
+
+  .glare__beam {
+    display: none;
+  }
+}
