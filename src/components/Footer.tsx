@@ -1,6 +1,7 @@
 import { NAV, SITE } from "../data/site";
 import { telLink, waLink } from "../lib/whatsapp";
 import { StrawberryIcon, WhatsAppIcon } from "./icons";
+import { CircularSeal } from "./reactbits/CircularSeal";
 
 const YEAR = new Date().getFullYear();
 
@@ -38,6 +39,8 @@ export function Footer() {
             Llamar
           </a>
         </div>
+
+        <CircularSeal className="footer__stamp" />
       </div>
 
       <div className="container footer__legal">

@@ -65,6 +65,18 @@ Reglas:
 - **Siempre** respetar `prefers-reduced-motion: reduce`: sin marquesina, sin imán, sin destello, reveal estático.
 - Efectos con puntero desactivados en `hover: none`.
 
+### Interacción (adaptaciones de react-bits)
+
+| Gesto | Dónde | Límite |
+|---|---|---|
+| `TiltedCard` | marco del Hero | ±4,5° y escala 1,012; solo puntero fino, plano en táctil |
+| `SplitFlapText` | “Seis” del titular de la carta | una sola pasada al entrar; el texto accesible va aparte |
+| `CircularSeal` | pie de página | giro de 48 s, decorativo, se detiene con movimiento reducido |
+
+Reglas: un solo efecto de puntero por superficie (la tarjeta de producto ya
+tiene spotlight + glare) y ningún bucle infinito salvo el sello. Toda animación
+debe dejar el contenido legible y en su sitio si se apaga.
+
 ## Accesibilidad
 
 - Un solo `h1`; jerarquía de encabezados sin saltos.

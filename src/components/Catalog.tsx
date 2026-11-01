@@ -2,6 +2,7 @@ import { PRODUCT_COUNT, TEMPORADA, VITRINA } from "../data/products";
 import { countWord } from "../lib/numbers";
 import { Flourish } from "./icons";
 import { ProductCard } from "./ProductCard";
+import { SplitFlapText } from "./reactbits/SplitFlapText";
 import { Reveal } from "./Reveal";
 
 export function Catalog() {
@@ -12,7 +13,10 @@ export function Catalog() {
           <header className="section-head">
             <p className="eyebrow eyebrow--center">La carta</p>
             <h2 className="section-title">
-              {PRODUCT_COUNT === 1 ? "Un postre" : `${countWord(PRODUCT_COUNT)} postres`},{" "}
+              <SplitFlapText
+                text={PRODUCT_COUNT === 1 ? "Un" : countWord(PRODUCT_COUNT)}
+              />{" "}
+              {PRODUCT_COUNT === 1 ? "postre" : "postres"},{" "}
               <em>una sola fruta</em>
             </h2>
             <Flourish className="section-flourish" />

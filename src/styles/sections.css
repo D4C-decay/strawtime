@@ -285,12 +285,16 @@
 
 .photo-frame {
   position: relative;
-  width: min(100%, 410px);
+  width: 100%;
   padding: 0.85rem 0.85rem 0;
   background: var(--paper-soft);
   border: 1px solid var(--silver-line);
   box-shadow: var(--shadow-lg);
   transform: rotate(-1.4deg);
+}
+
+.hero__tilt {
+  width: min(100%, 410px);
 }
 
 .photo-frame__media {
@@ -1181,6 +1185,12 @@
   color: var(--rose-ink);
 }
 
+.footer__stamp {
+  margin-left: auto;
+  width: 100px;
+  height: 100px;
+}
+
 .footer__legal {
   display: flex;
   justify-content: space-between;
@@ -1288,7 +1298,7 @@
     padding-left: 0.4rem;
   }
 
-  .photo-frame {
+  .hero__tilt {
     width: min(100%, 380px);
   }
 
@@ -1495,6 +1505,12 @@
   .footer__legal {
     flex-direction: column;
     gap: 0.3rem;
+  }
+
+  .footer__stamp {
+    width: 86px;
+    height: 86px;
+    margin-inline: auto;
   }
 }
 

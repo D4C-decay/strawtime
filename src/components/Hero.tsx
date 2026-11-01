@@ -1,6 +1,7 @@
 import { SITE } from "../data/site";
 import { waLink } from "../lib/whatsapp";
 import { GlareHover } from "./reactbits/GlareHover";
+import { TiltedCard } from "./reactbits/TiltedCard";
 import { ArrowIcon, Flourish, StrawberryIcon, WhatsAppIcon } from "./icons";
 
 export function Hero() {
@@ -57,21 +58,23 @@ export function Hero() {
         </div>
 
         <div className="hero__figure">
-          <div className="photo-frame">
-            <GlareHover className="photo-frame__media">
-              <img
-                src="/img/hero.webp"
-                width={736}
-                height={981}
-                alt="Postre de temporada StrawTime con fresas frescas y crema"
-                fetchPriority="high"
-                decoding="async"
-              />
-            </GlareHover>
-            <p className="photo-frame__caption">
-              Hecho hoy, con fresas del día
-            </p>
-          </div>
+          <TiltedCard className="hero__tilt">
+            <div className="photo-frame">
+              <GlareHover className="photo-frame__media">
+                <img
+                  src="/img/hero.webp"
+                  width={736}
+                  height={981}
+                  alt="Postre de temporada StrawTime con fresas frescas y crema"
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </GlareHover>
+              <p className="photo-frame__caption">
+                Hecho hoy, con fresas del día
+              </p>
+            </div>
+          </TiltedCard>
 
           <div className="seal" aria-hidden="true">
             <span>Hecho</span>
