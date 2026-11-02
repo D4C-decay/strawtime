@@ -208,6 +208,7 @@ main:focus {
 /* ---------- botones ---------- */
 
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -260,6 +261,48 @@ main:focus {
     inset 0 1px 0 rgba(255, 255, 255, 0.6),
     0 0 0 1px rgba(154, 160, 168, 0.7),
     0 10px 20px -14px rgba(62, 42, 30, 0.55);
+}
+
+/* Foco de luz que sigue al cursor por el borde (BorderGlow). */
+.btn--rose::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    72px circle at var(--glow-x, 50%) var(--glow-y, 50%),
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.35) 42%,
+    transparent 70%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn--rose:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Chispas de fresa al pulsar WhatsApp (ClickSpark). */
+.spark-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .btn--ghost {

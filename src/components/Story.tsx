@@ -1,8 +1,19 @@
 import { SITE } from "../data/site";
 import { PRODUCT_COUNT } from "../data/products";
 import { Counter } from "./reactbits/Counter";
+import { DriftWall, type DriftItem } from "./reactbits/DriftWall";
 import { Flourish, StrawberryIcon } from "./icons";
 import { Reveal } from "./Reveal";
+
+const MOMENTS: DriftItem[] = [
+  { image: "/img/copa.webp", caption: "La copa de la casa" },
+  { image: "/img/terciopelo.webp", caption: "Bañadas, sin prisa" },
+  { image: "/img/mordiscos.webp", caption: "Para picar" },
+  { image: "/img/tarta.webp", caption: "Tarta de fresa" },
+  { image: "/img/chocoflan.webp", caption: "Chocoflan" },
+  { image: "/img/temporada.webp", caption: "La de temporada" },
+  { image: "/img/hero.webp", caption: "Fresas del día" },
+];
 
 const SEALS = [
   { to: PRODUCT_COUNT, suffix: "", label: "postres en carta" },
@@ -15,39 +26,12 @@ export function Story() {
     <section className="section story" id="receta">
       <div className="container story__grid">
         <Reveal className="story__gallery">
-          <figure className="polaroid polaroid--a">
-            <img
-              src="/img/copa.webp"
-              width={736}
-              height={920}
-              alt="Copa de fresas con crema batida"
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>La copa de la casa</figcaption>
-          </figure>
-          <figure className="polaroid polaroid--b">
-            <img
-              src="/img/terciopelo.webp"
-              width={736}
-              height={920}
-              alt="Fresas bañadas en chocolate"
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>Bañadas, sin prisa</figcaption>
-          </figure>
-          <figure className="polaroid polaroid--c">
-            <img
-              src="/img/mordiscos.webp"
-              width={675}
-              height={843}
-              alt="Mordiscos de fresa en porciones pequeñas"
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>Para picar</figcaption>
-          </figure>
+          <DriftWall items={MOMENTS} />
+          <p className="sr-only">
+            Collage de nuestros postres: la copa de la casa, fresas bañadas,
+            mordiscos para picar, tarta de fresa, chocoflan y la pieza de
+            temporada.
+          </p>
         </Reveal>
 
         <div className="story__copy">

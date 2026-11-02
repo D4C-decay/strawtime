@@ -61,7 +61,9 @@ Los precios son opcionales. Si un postre no tiene `price`, la tarjeta muestra
 src/
   components/        secciones y piezas de UI
   components/reactbits/  efectos adaptados (spotlight, glare, magnet, counter,
-                         tilted, split-flap, sello circular)
+                         tilted, split-flap, sello circular, marquesina curva,
+                         interludio con scroll, muro de fotos, borde luminoso,
+                         chispas al pulsar WhatsApp)
   data/              contenido editable
   lib/               WhatsApp, reveal, utilidades
   styles/            tokens.css, base.css, sections.css

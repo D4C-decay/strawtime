@@ -365,51 +365,48 @@
 
 /* ---------- cinta ---------- */
 
-.ribbon {
+/* ---------- marquesina curva ---------- */
+
+.loop {
+  position: relative;
   overflow: hidden;
-  background: var(--rose);
-  border-block: 1px solid var(--silver-line);
+  padding-block: clamp(0.4rem, 1.6vw, 1.1rem);
 }
 
-.ribbon__track {
-  display: flex;
-  width: max-content;
-  animation: marquee 38s linear infinite;
+/* Rubor de rosa bajo el arco: sustituye la cinta plana sin cortar el papel. */
+.loop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(88% 130% at 50% 0%, rgba(243, 201, 209, 0.5), transparent 66%);
+  pointer-events: none;
 }
 
-.ribbon:hover .ribbon__track {
-  animation-play-state: paused;
+.loop__jacket {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-/* En táctil el :hover se queda pegado y dejaría la cinta congelada. */
-@media (hover: none) {
-  .ribbon:hover .ribbon__track {
-    animation-play-state: running;
-  }
-}
-
-.ribbon__item {
-  display: inline-flex;
-  align-items: center;
-  gap: 2.4rem;
-  padding: 0.65rem 1.2rem;
-  font-size: 0.66rem;
+.loop__svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  fill: var(--rose-ink);
+  font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--rose-ink);
-  white-space: nowrap;
+  line-height: 1;
 }
 
-.ribbon__dot {
-  color: var(--silver-lo);
-  letter-spacing: 0;
-}
-
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
+.loop__mark {
+  fill: var(--silver-lo);
+  letter-spacing: 0.1em;
 }
 
 /* ---------- catálogo ---------- */
@@ -703,57 +700,139 @@
 
 .story__gallery {
   position: relative;
-  min-height: 460px;
+  height: clamp(380px, 44vw, 540px);
 }
 
-.polaroid {
-  position: absolute;
-  margin: 0;
-  padding: 0.55rem 0.55rem 0;
-  background: #fbf4e8;
-  border: 1px solid var(--silver-line);
-  box-shadow: var(--shadow-md);
-}
+/* ---------- muro de fotos (drift wall) ---------- */
 
-.polaroid img {
+.dw {
+  position: relative;
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
+  height: 100%;
+  overflow: hidden;
+  perspective: 1300px;
+  perspective-origin: 50% 50%;
+  --dw-tile-w: clamp(96px, 9.6vw, 136px);
+  --dw-tile-h: clamp(120px, 12vw, 170px);
+  --dw-gap: clamp(10px, 1.1vw, 16px);
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent),
+    linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent),
+    linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-composite: intersect;
+}
+
+.dw__plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: row;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.dw__col {
+  position: relative;
+  width: calc(var(--dw-tile-w) + var(--dw-gap));
+  transform-style: preserve-3d;
+}
+
+.dw__track {
+  display: flex;
+  flex-direction: column;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.dw__tile {
+  display: block;
+  flex: 0 0 auto;
+  width: 100%;
+  height: calc(var(--dw-tile-h) + var(--dw-gap));
+  transform-style: preserve-3d;
+}
+
+.dw__inner {
+  position: absolute;
+  inset: calc(var(--dw-gap) / 2);
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(154, 160, 168, 0.55);
+  border-radius: 3px;
+  background: #fbf4e8;
+  opacity: 0.82;
+  box-shadow: 0 10px 22px -18px rgba(62, 42, 30, 0.7);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition:
+    transform 0.5s var(--ease),
+    opacity 0.5s var(--ease),
+    box-shadow 0.5s var(--ease);
+}
+
+.dw__inner img {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border: 1px solid rgba(154, 160, 168, 0.4);
+  filter: saturate(0.94) contrast(1.02);
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
-.polaroid figcaption {
-  padding: 0.5rem 0 0.55rem;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 0.78rem;
-  text-align: center;
-  color: var(--ink-soft);
+.dw__tint {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  opacity: 0.22;
+  transition: opacity 0.5s var(--ease);
+  pointer-events: none;
 }
 
-.polaroid--a {
-  top: 0;
-  left: 0;
-  width: 60%;
-  transform: rotate(-4deg);
-  z-index: 2;
+.dw__tile:hover .dw__inner {
+  opacity: 1;
+  transform: translateZ(46px) rotate(-0.6deg);
+  box-shadow: 0 26px 46px -22px rgba(62, 42, 30, 0.55);
 }
 
-.polaroid--b {
-  top: 16%;
-  right: 0;
-  width: 52%;
-  transform: rotate(3.5deg);
-  z-index: 1;
+.dw__tile:hover .dw__tint {
+  opacity: 0;
 }
 
-.polaroid--c {
-  bottom: 0;
-  left: 10%;
-  width: 44%;
-  transform: rotate(1.5deg);
-  z-index: 3;
+@media (prefers-reduced-motion: reduce) {
+  .dw__plane,
+  .dw__track,
+  .dw__inner {
+    will-change: auto;
+  }
+
+  .dw__inner {
+    transition: none;
+  }
+
+  .dw__tile:hover .dw__inner {
+    transform: none;
+  }
+}
+
+@media (hover: none) {
+  .dw__inner {
+    opacity: 0.9;
+  }
+
+  .dw__tile:hover .dw__inner {
+    transform: none;
+    box-shadow: 0 10px 22px -18px rgba(62, 42, 30, 0.7);
+  }
+
+  .dw__tile:hover .dw__tint {
+    opacity: 0.22;
+  }
 }
 
 .story__copy p {
@@ -799,6 +878,160 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-faint);
+}
+
+/* ---------- interludio con scroll ---------- */
+
+.se {
+  position: relative;
+  margin: 0;
+}
+
+.se__track {
+  position: relative;
+  width: 100%;
+}
+
+.se__stage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  --se-card-bottom: 79%;
+}
+
+.se__frame {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(21% 34% 21% 34% round 16px);
+  will-change: clip-path;
+}
+
+.se__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  transform-origin: center;
+  will-change: transform;
+  filter: saturate(0.97) contrast(1.02) sepia(0.04);
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.se__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(38, 22, 14, 0.8),
+    rgba(38, 22, 14, 0.16) 46%,
+    rgba(38, 22, 14, 0.34)
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Pie de foto sobre el papel, como una polaroid con su leyenda. */
+.se__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--se-card-bottom) + clamp(1.1rem, 2.6vw, 1.7rem));
+  padding-inline: var(--gutter);
+  text-align: center;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+.se__eyebrow {
+  margin: 0;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--rose-ink);
+}
+
+.se__kicker {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.se__hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(1.1rem, 2.6vw, 1.9rem);
+  margin: 0;
+  text-align: center;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+.se__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 7vw, 5rem);
+  text-align: center;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.se__content {
+  max-width: 42rem;
+  margin-inline: auto;
+  color: var(--paper-soft);
+  text-shadow: 0 2px 28px rgba(38, 22, 14, 0.6);
+}
+
+.se__overlay .eyebrow {
+  color: var(--rose);
+}
+
+.se__title {
+  margin: 0.45rem 0 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.05;
+  color: var(--paper-soft);
+}
+
+.se__title em {
+  color: var(--rose);
+}
+
+.se__lead {
+  max-width: 34rem;
+  margin: 1.1rem auto 0;
+  font-size: clamp(0.95rem, 1.4vw, 1.06rem);
+  color: rgba(247, 238, 223, 0.88);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .se__frame,
+  .se__media,
+  .se__caption,
+  .se__overlay,
+  .se__hint {
+    will-change: auto;
+  }
 }
 
 /* ---------- cómo pedir ---------- */
@@ -1309,29 +1542,8 @@
   }
 
   .story__gallery {
-    min-height: 0;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.7rem;
+    height: clamp(340px, 68vw, 420px);
     order: 2;
-  }
-
-  .polaroid {
-    position: static;
-    width: auto !important;
-    transform: none;
-  }
-
-  .polaroid--a {
-    transform: rotate(-1.6deg);
-  }
-
-  .polaroid--b {
-    transform: rotate(1.2deg);
-  }
-
-  .polaroid--c {
-    transform: rotate(-0.8deg);
   }
 
   .steps {
@@ -1486,16 +1698,7 @@
   }
 
   .story__gallery {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .polaroid--c {
-    display: block;
-    grid-column: 1 / -1;
-  }
-
-  .polaroid--c img {
-    aspect-ratio: 16 / 7;
+    height: clamp(320px, 78vw, 400px);
   }
 
   .contact-card {

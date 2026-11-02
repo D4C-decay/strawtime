@@ -61,8 +61,10 @@ Reglas:
 ## Movimiento
 
 - Duraciones 280–850 ms, easing `cubic-bezier(.22,.61,.36,1)`.
-- Reveal al entrar en viewport, marquesina lenta de la cinta, destello plateado en fotos.
-- **Siempre** respetar `prefers-reduced-motion: reduce`: sin marquesina, sin imán, sin destello, reveal estático.
+- Reveal al entrar en viewport, marquesina curva entre secciones, destello plateado en fotos.
+- **Momentos de scroll**: un único tramo sticky en toda la página (el interludio de temporada). La foto se abre desde formato postal hasta sangre completa siguiendo el scroll de la ventana: nunca se secuestra el scroll ni se cambia su velocidad.
+- Bucles continuos permitidos: la marquesina curva y el muro de fotos de “Nuestra receta”. Ambos se pausan al salir de viewport; el muro también al pasar el ratón.
+- **Siempre** respetar `prefers-reduced-motion: reduce`: marquesina y muro estáticos, interludio ya abierto, sin imán, sin destello, sin chispas, reveal estático.
 - Efectos con puntero desactivados en `hover: none`.
 
 ### Interacción (adaptaciones de react-bits)
@@ -72,9 +74,14 @@ Reglas:
 | `TiltedCard` | marco del Hero | ±4,5° y escala 1,012; solo puntero fino, plano en táctil |
 | `SplitFlapText` | “Seis” del titular de la carta | una sola pasada al entrar; el texto accesible va aparte |
 | `CircularSeal` | pie de página | giro de 48 s, decorativo, se detiene con movimiento reducido |
+| `CurvedLoop` | banda entre Hero y Carta | arco calculado desde el tamaño de fuente; velocidad 1,1× y pequeño empuje al hacer scroll; sin JS con movimiento reducido |
+| `ScrollExpand` | interludio antes de “Cómo pedir” | 1,1 viewports de recorrido + 0,3 de reposo; `clip-path` + escala de la foto; el scroll sigue siendo del navegador |
+| `DriftWall` | collage de “Nuestra receta” | 3 columnas, 4 copias por columna, pausa al hover y fuera de viewport; decorativo (`aria-hidden`) con descripción `sr-only` |
+| `BorderGlow` | botones rosa | foco de luz de 72 px que sigue al cursor sobre un anillo de 1 px; solo puntero fino |
+| `ClickSpark` | enlaces de WhatsApp | 10 chispas de 0,4–0,7 s en un canvas fijo reutilizado; sin JS con movimiento reducido |
 
 Reglas: un solo efecto de puntero por superficie (la tarjeta de producto ya
-tiene spotlight + glare) y ningún bucle infinito salvo el sello. Toda animación
+tiene spotlight + glare) y los bucles continuos se pausan solos. Toda animación
 debe dejar el contenido legible y en su sitio si se apaga.
 
 ## Accesibilidad

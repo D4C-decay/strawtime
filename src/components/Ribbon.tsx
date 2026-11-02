@@ -1,3 +1,5 @@
+import { CurvedLoop } from "./reactbits/CurvedLoop";
+
 const ITEMS = [
   "Fresas frescas del día",
   "Crema batida artesanal",
@@ -6,18 +8,20 @@ const ITEMS = [
   "Hecho al momento",
 ];
 
+/**
+ * Separador entre el Hero y la carta. Antes era una cinta recta; ahora es una
+ * marquesina curva que se puede arrastrar.
+ */
 export function Ribbon() {
-  const track = [...ITEMS, ...ITEMS];
   return (
-    <div className="ribbon" aria-hidden="true">
-      <div className="ribbon__track">
-        {track.map((item, index) => (
-          <span key={`${item}-${index}`} className="ribbon__item">
-            {item}
-            <span className="ribbon__dot">✦</span>
-          </span>
-        ))}
-      </div>
+    <div className="loop">
+      <CurvedLoop
+        marqueeText={ITEMS.join("  ")}
+        separator="✦"
+        speed={1.1}
+        scrollBoost={0.8}
+        edgeFade={0.1}
+      />
     </div>
   );
 }
